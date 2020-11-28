@@ -2,17 +2,21 @@ var dog,happyDog;
 var dogImg,happyDogImg;
 var foodS,foodStock;
 var database;
+var name,nameButton,nameBox;
+var milk,milkImg;
 
 function preload()
 {
   dogImg=loadImage("images/dogImg.png");
   happyDogImg=loadImage("images/dogImg1.png");
+  milkImg=loadImage("images/milk.png");
 }
 
 function setup() {
   createCanvas(500, 500);
-  dog=createSprite(250,350);
+  dog=createSprite(250,250);
   dog.addImage("normal",dogImg);
+  dog.scale=0.35;
 
   database = firebase.database();
 
@@ -22,23 +26,41 @@ function setup() {
     "Food": 20
   });
   
+  nameBox = createInput("Name");
+  nameBox.position(375, 75);
+
+  nameButton = createButton("Update");
+  nameButton.position(375, 100);
+  nameButton.mousePressed(() => {
+    name = nameBox.value();
+  });
 }
 
 
 function draw() {  
   background(46,139,87);
 
-  if(keyWentDown(UP_ARROW)){
+  if(keyDown(UP_ARROW)){
     writeStock(foodS);
-    dog.addImage(happyDog);
+    milk=createSprite(140,320);
+    milk.addImage(milkImg);
+    milk.scale=0.30;
+    dog.addImage(happyDogImg);
+    textSize(20);
+    fill(255);
+    textFont('Georgia');
+    text("Fed Milk",350,50);
   }
+  
   drawSprites();
 
   //add styles here
   textSize(20);
   fill(255);
-  textAlign(CENTER, CENTER);
-  text("Note: Press UP_ARROW Key To Feed Milk",200,85);
+  textFont('Georgia');
+  textAlign(CENTER,CENTER);
+  text("Note: Press UP-ARROW Key To Feed Milk",245,465);
+  text(name, 245, 400);
 }
 
 function readStock(data){
