@@ -46,10 +46,12 @@ function draw() {
     milk.addImage(milkImg);
     milk.scale=0.30;
     dog.addImage(happyDogImg);
-    textSize(20);
-    fill(255);
-    textFont('Georgia');
-    text("Fed Milk",350,50);
+    if(foodS!==0){
+      textSize(20);
+      fill(255);
+      textFont('Georgia');
+      text("Fed Milk",400,75);
+    }
   }
   
   drawSprites();
@@ -61,6 +63,7 @@ function draw() {
   textAlign(CENTER,CENTER);
   text("Note: Press UP-ARROW Key To Feed Milk",245,465);
   text(name, 245, 400);
+  text("Food remaining: "+foodS,400,35);
 }
 
 function readStock(data){
