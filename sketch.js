@@ -1,3 +1,4 @@
+//global variables
 var dog,happyDog;
 var dogImg,happyDogImg;
 var foodS,foodStock;
@@ -7,6 +8,7 @@ var milk,milkImg;
 
 function preload()
 {
+  //preloading all images
   dogImg=loadImage("images/dogImg.png");
   happyDogImg=loadImage("images/dogImg1.png");
   milkImg=loadImage("images/milk.png");
@@ -14,18 +16,23 @@ function preload()
 
 function setup() {
   createCanvas(500, 500);
+  
+  //dog sprite
   dog=createSprite(250,250);
   dog.addImage("normal",dogImg);
   dog.scale=0.35;
 
   database = firebase.database();
 
+  //foodStock
   foodStock=database.ref('Food');
   foodStock.on("value",readStock);
   database.ref("/").update({
     "Food": 20
   });
   
+  //additional part
+  //name button
   nameBox = createInput("Name");
   nameBox.position(375, 75);
 
@@ -40,6 +47,7 @@ function setup() {
 function draw() {  
   background(46,139,87);
 
+  //UP_Arrow Pressed
   if(keyDown(UP_ARROW)){
     writeStock(foodS);
     milk=createSprite(140,320);
@@ -56,7 +64,7 @@ function draw() {
   
   drawSprites();
 
-  //add styles here
+  //styles 
   textSize(20);
   fill(255);
   textFont('Georgia');
